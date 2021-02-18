@@ -9,6 +9,7 @@
   "author": "司空摘星",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.0.0-alpha.8"
+    "express": "^5.0.0-alpha.8",
+    "mongoose": "^5.11.17"
   }
 }

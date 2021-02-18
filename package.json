@@ -1,0 +1,14 @@
+{
+  "name": "blog-service",
+  "version": "1.0.0",
+  "description": "司空摘星博客服务",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "司空摘星",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.0.0-alpha.8"
+  }
+}

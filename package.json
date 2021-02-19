@@ -8,6 +8,11 @@
     "precommit": "npm run test",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test"
+    }
+  },
   "lint-staged": {
     "*.js": "eslint",
     "*.less": "stylelint",

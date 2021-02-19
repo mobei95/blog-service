@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "precommit": "npm test",
+    "commitmsg": "commitlint -E GIT_PARAMS",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "司空摘星",
@@ -19,7 +20,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test"
+      "pre-commit": "npm test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }

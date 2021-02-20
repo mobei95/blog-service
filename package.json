@@ -10,6 +10,9 @@
     "test": "echo 'git commit trigger husky pre-commit hook'",
     "lint": "lint-staged"
   },
+  "lint-staged": {
+    "*.js": "eslint --fix"
+  },
   "dependencies": {
     "express": "^5.0.0-alpha.8",
     "mongoose": "^5.11.17"

@@ -5,19 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test"
-    }
-  },
-  "lint-staged": {
-    "*.js": "eslint",
-    "*.less": "stylelint",
-    "*.css": "stylelint",
-    "*.json": "jsonlint --quiet",
-    "*.md": "markdownlint --config .markdownlint.json"
+    "test": "echo 'git commit trigger husky pre-commit hook'"
   },
   "author": "司空摘星",
   "license": "ISC",

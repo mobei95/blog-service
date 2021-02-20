@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo 'git commit trigger husky pre-commit hook'"
+    "test": "echo 'git commit trigger husky pre-commit hook'",
+    "commitlint": "commitlint -E HUSKY_GIT_PARAMS"
   },
   "author": "司空摘星",
   "license": "ISC",

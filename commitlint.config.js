@@ -1,7 +1,7 @@
 /**
 * feature：新功能
 * update：更新某功能
-* fixbug：修补某功能的bug
+* fix：修补某功能的bug
 * refactor：重构某个功能
 * optimize: 优化构建工具或运行时性能
 * style：仅样式改动
@@ -14,7 +14,7 @@ module.exports = {
   ],
   rules: {
     'type-enum': [2, 'always', [
-      'feature', 'update', 'fixbug', 'refactor', 'optimize', 'style', 'docs', 'chore'
+      'feature', 'update', 'fix', 'refactor', 'optimize', 'style', 'docs', 'chore'
     ]],
     'type-case': [0],
     'type-empty': [0],

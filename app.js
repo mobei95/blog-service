@@ -11,5 +11,5 @@ app.use(require('cors')());
 app.use('/', router);
 
 app.listen(config.port, () => {
-  console.log('服务启动');
+  console.log('服务启动', config.port);
 });

@@ -22,7 +22,7 @@ class UserController extends baseController {
       return;
     }
     try {
-      const user = await userModel.finOne({ user_name });
+      const user = await userModel.findOne({ user_name });
       if (!user) {
         const newPassword = this.encrypt(password);
         const newUser = {
@@ -59,7 +59,7 @@ class UserController extends baseController {
       return;
     }
     try {
-      const user = await userModel.finOne({ user_name });
+      const user = await userModel.findOne({ user_name });
       if (!user) {
         res.send({
           code: 0,

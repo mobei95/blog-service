@@ -12,7 +12,9 @@ const db_options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-const db = mongoose.createConnection(`${config.db_url}`, db_options);
+mongoose.connect(`${config.db_url}`, db_options);
+
+const db = mongoose.connection;
 
 db.once('open', () => {
   console.log('连接数据库成功');

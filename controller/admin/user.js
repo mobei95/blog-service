@@ -6,13 +6,14 @@ class UserController extends baseController {
   constructor() {
     super();
     this.cryptoKey = `CRYPTO${this.random()}`;
+    this.register = this.register.bind(this);
+    this.login = this.login.bind(this);
   }
 
   /**
 	 * @description 用户注册
 	 * */
   async register(req, res) {
-    console.log(req, res);
     const { user_name, password } = req.body;
     if (!user_name || !password) {
       res.send({
@@ -31,6 +32,10 @@ class UserController extends baseController {
           status: 0,
         };
         await userModel.create(newUser);
+        res.send({
+          code: 0,
+          message: 'success',
+        });
       } else {
         res.send({
           code: 0,
@@ -91,11 +96,11 @@ class UserController extends baseController {
   }
 
   encrypt(password) {
-    this.crypto().encrypt(password, this.cryptoKey).toString();
+    return this.crypto().encrypt(password, this.cryptoKey).toString();
   }
 
   decrypt(password) {
-    this.crypto().decrypt(password, this.cryptoKey);
+    return this.crypto().decrypt(password, this.cryptoKey).toString(CryptoJS.enc.Utf8);
   }
 }
 

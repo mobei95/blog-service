@@ -10,6 +10,6 @@ app.use(require('cors')());
 // 配置接口跨域
 app.use('/', router);
 
-app.listen(config.port, () => {
+app.listen(config.port, async () => {
   console.log('服务启动', config.port);
 });

@@ -12,7 +12,7 @@ const db_options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-const db = mongoose.createConnection(`${config.db_url}authSource=admin`, db_options);
+const db = mongoose.createConnection(`${config.db_url}`, db_options);
 
 db.once('open', () => {
   console.log('连接数据库成功');

@@ -16,6 +16,7 @@
   "dependencies": {
     "config-lite": "^3.0.0",
     "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
     "express": "^5.0.0-alpha.8",
     "mongoose": "^5.11.17"
   },

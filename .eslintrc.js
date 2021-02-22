@@ -18,6 +18,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'max-len': ['error', { code: 300 }],
     'no-useless-constructor': 'off',
+    'class-methods-use-this': 'off',
+    camelcase: 'off',
     'no-tabs': 'off',
   },
 };

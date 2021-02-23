@@ -54,7 +54,6 @@ class ColumnController extends baseController {
    * @description column列表
    * */
   async getColumnList(req, res) {
-    console.log(req, res);
     const { column_name, count = 10, page = 1 } = req.query;
     try {
       if (typeof Number(count) !== 'number' || count <= 0) {
@@ -74,8 +73,9 @@ class ColumnController extends baseController {
     const limit = page - 1;
     const skip = count * limit;
     const params = column_name ? { column_name } : {};
+    const projection = ['column_name', 'column_id', 'update_at'].join(' ');
     try {
-      const columnList = await columnModel.find({ ...params }, null, { skip, limit }).select('column_name, column_id, update_at');
+      const columnList = await columnModel.find({ ...params }, null, { skip, limit }).select(projection);
       const total = await columnModel.countDocuments({ ...params });
       res.send({
         code: 0,

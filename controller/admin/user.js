@@ -5,7 +5,7 @@ const userModel = require('../../database/model/user');
 class UserController extends baseController {
   constructor() {
     super();
-    this.cryptoKey = `CRYPTO${this.random()}`;
+    this.cryptoKey = 'CRYPTO_KEY';
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
     this.changePassword = this.changePassword.bind(this);
@@ -124,7 +124,8 @@ class UserController extends baseController {
           code: 0,
           message: '当前用户不存在',
         });
-      } else if (newPassword !== this.decrypt(user.password)) {
+      } else if (oldPassword !== this.decrypt(user.password)) {
+        console.log('oldPassword', oldPassword, this.decrypt(user.password), user);
         res.send({
           code: 0,
           message: '用户密码错误',

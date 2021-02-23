@@ -6,7 +6,7 @@ const options = {
 };
 
 const columnSchema = new mongoose.Schema({
-  id: Number,
+  column_id: Number,
   column_name: String,
 }, options);
 

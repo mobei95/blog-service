@@ -101,14 +101,16 @@ class UserController extends baseController {
    * @description 修改密码
    * */
   async changePassword(req, res) {
-    const { user_name, password, oldPassword } = req.body;
-    if (!user_name || !password || !oldPassword) {
+    const {
+      user_name, newPassword, repeatPassword, oldPassword,
+    } = req.body;
+    if (!user_name || !newPassword || !repeatPassword || !oldPassword) {
       res.send({
         code: 400,
         message: '参数不完整',
       });
       return;
-    } if (password !== oldPassword) {
+    } if (newPassword !== repeatPassword) {
       res.send({
         code: 0,
         message: '两次密码不一致',
@@ -122,13 +124,13 @@ class UserController extends baseController {
           code: 0,
           message: '当前用户不存在',
         });
-      } else if (password !== this.decrypt(user.password)) {
+      } else if (newPassword !== this.decrypt(user.password)) {
         res.send({
           code: 0,
           message: '用户密码错误',
         });
       } else {
-        user.password = this.encrypt(password);
+        user.password = this.encrypt(newPassword);
         user.save();
         res.send({
           code: 0,

@@ -8,6 +8,7 @@ class UserController extends baseController {
     this.cryptoKey = `CRYPTO${this.random()}`;
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
+    this.changePassword = this.changePassword.bind(this);
   }
 
   /**
@@ -27,6 +28,7 @@ class UserController extends baseController {
       if (!user) {
         const newPassword = this.encrypt(password);
         const newUser = {
+          user_id: await this.getId('user_id'),
           user_name,
           password: newPassword,
           status: 0,
@@ -76,9 +78,13 @@ class UserController extends baseController {
           message: '用户密码错误',
         });
       } else {
+        const { status, user_id, created_at } = user;
+        const sendData = {
+          status, user_id, user_name, created_at,
+        };
         res.send({
           code: 0,
-          data: user,
+          data: sendData,
           message: 'success',
         });
       }
@@ -87,6 +93,53 @@ class UserController extends baseController {
       res.send({
         code: 500,
         message: '登陆失败',
+      });
+    }
+  }
+
+  /**
+   * @description 修改密码
+   * */
+  async changePassword(req, res) {
+    const { user_name, password, oldPassword } = req.body;
+    if (!user_name || !password || !oldPassword) {
+      res.send({
+        code: 400,
+        message: '参数不完整',
+      });
+      return;
+    } if (password !== oldPassword) {
+      res.send({
+        code: 0,
+        message: '两次密码不一致',
+      });
+      return;
+    }
+    try {
+      const user = await userModel.findOne({ user_name });
+      if (!user) {
+        res.send({
+          code: 0,
+          message: '当前用户不存在',
+        });
+      } else if (password !== this.decrypt(user.password)) {
+        res.send({
+          code: 0,
+          message: '用户密码错误',
+        });
+      } else {
+        user.password = this.encrypt(password);
+        user.save();
+        res.send({
+          code: 0,
+          success: 'success',
+        });
+      }
+    } catch (err) {
+      console.log('修改密码错误');
+      res.send({
+        code: 500,
+        message: '修改密码错误',
       });
     }
   }

@@ -7,11 +7,11 @@ const options = {
 
 const columnSchema = new mongoose.Schema({
   id: Number,
-  title: String,
+  column_name: String,
 }, options);
 
 columnSchema.index({ id: 1 });
 
-const ColumnModel = mongoose.model('user', columnSchema);
+const ColumnModel = mongoose.model('column', columnSchema);
 
 module.exports = ColumnModel;

@@ -16,6 +16,6 @@ const articleSchema = new mongoose.Schema({
 
 articleSchema.index({ id: 1 });
 
-const ArticleModel = mongoose.model('user', articleSchema);
+const ArticleModel = mongoose.model('article', articleSchema);
 
 module.exports = ArticleModel;

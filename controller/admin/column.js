@@ -6,6 +6,7 @@ class ColumnController extends baseController {
     super();
     this.createColumn = this.createColumn.bind(this);
     this.getColumnList = this.getColumnList.bind(this);
+    this.updateColumn = this.updateColumn.bind(this);
   }
 
   /**
@@ -86,6 +87,42 @@ class ColumnController extends baseController {
       res.send({
         code: 500,
         message: 'column查询失败',
+      });
+    }
+  }
+
+  /**
+   * @description 更新column
+   * */
+  async updateColumn(req, res) {
+    const { column_name, column_id } = req.body;
+    if (!column_name || !column_id) {
+      res.send({
+        code: 400,
+        message: '参数错误',
+      });
+    }
+    try {
+      const column = await columnModel.findOne({ column_id });
+      if (!column) {
+        res.send({
+          code: 0,
+          message: '栏目不存在',
+        });
+        return;
+      }
+      column.column_name = column_name;
+      column.save();
+      res.send({
+        code: 0,
+        data: column,
+        message: 'success',
+      });
+    } catch (err) {
+      console.log('修改栏目出错', err);
+      res.send({
+        code: 500,
+        message: '修改栏目出错',
       });
     }
   }

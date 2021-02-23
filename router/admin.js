@@ -19,4 +19,7 @@ router.post('/column', Column.createColumn);
 // 获取栏目列表
 router.get('/column', Column.getColumnList);
 
+// 更新栏目
+router.put('/column', Column.updateColumn);
+
 module.exports = router;

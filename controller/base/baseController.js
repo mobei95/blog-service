@@ -14,7 +14,6 @@ module.exports = class BaseController {
    * */
   async getId(type) {
     if (!this.ids.includes(type)) {
-      console.log('id类型不存在');
       throw new Error('id类型不存在');
     }
     try {

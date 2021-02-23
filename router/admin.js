@@ -22,4 +22,7 @@ router.get('/column', Column.getColumnList);
 // 更新栏目
 router.put('/column', Column.updateColumn);
 
+// 删除栏目
+router.delete('/column', Column.delColumn);
+
 module.exports = router;

@@ -7,6 +7,7 @@ class ColumnController extends baseController {
     this.createColumn = this.createColumn.bind(this);
     this.getColumnList = this.getColumnList.bind(this);
     this.updateColumn = this.updateColumn.bind(this);
+    this.delColumn = this.delColumn.bind(this);
   }
 
   /**
@@ -19,6 +20,7 @@ class ColumnController extends baseController {
         code: 400,
         message: '栏目名称不可为空',
       });
+      return;
     }
     try {
       const column = await columnModel.findOne({ column_name });
@@ -66,6 +68,7 @@ class ColumnController extends baseController {
         code: 400,
         message: err.message,
       });
+      return;
     }
 
     const limit = page - 1;
@@ -101,6 +104,7 @@ class ColumnController extends baseController {
         code: 400,
         message: '参数错误',
       });
+      return;
     }
     try {
       const column = await columnModel.findOne({ column_id });
@@ -123,6 +127,33 @@ class ColumnController extends baseController {
       res.send({
         code: 500,
         message: '修改栏目出错',
+      });
+    }
+  }
+
+  /**
+   * @description 删除column
+   * */
+  async delColumn(req, res) {
+    const { column_id } = req.body;
+    if (!column_id) {
+      res.send({
+        code: 400,
+        message: '参数错误',
+      });
+      return;
+    }
+    try {
+      await columnModel.remove({ column_id });
+      res.send({
+        code: 0,
+        success: 'message',
+      });
+    } catch (err) {
+      console.log('删除column失败', err);
+      res.send({
+        code: 500,
+        message: '删除column失败',
       });
     }
   }

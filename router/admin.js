@@ -29,4 +29,7 @@ router.delete('/column', Column.delColumn);
 // 添加文章
 router.post('/article', Article.createArticle);
 
+// 获取文章列表
+router.get('/article', Article.getArticleList);
+
 module.exports = router;

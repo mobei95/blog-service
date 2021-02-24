@@ -61,6 +61,49 @@ class ArticleController extends baseController {
       });
     }
   }
+
+  /**
+   * @description 获取article列表
+   * */
+  async getArticleList(req, res) {
+    const { title, count = 10, page = 1 } = req.query;
+    try {
+      if (typeof Number(count) !== 'number' || count <= 0) {
+        throw new Error('count参数错误');
+      } else if (typeof Number(page) !== 'number' || page <= 0) {
+        throw new Error('page参数错误');
+      }
+    } catch (err) {
+      console.log('参数错误', err.message);
+      res.send({
+        code: 400,
+        message: err.message,
+      });
+      return;
+    }
+    const limit = page - 1;
+    const skip = count * limit;
+    const params = title ? { title } : {};
+    const projection = ['title', 'article_id', 'cover', 'summary', 'column', 'update_at'].join(' ');
+    try {
+      const articleList = await ArticleModel.find({ ...params }, null, { skip, limit }).select(projection);
+      const total = await ArticleModel.countDocuments({ ...params });
+      res.send({
+        code: 0,
+        data: {
+          data: articleList,
+          total,
+        },
+        message: 'success',
+      });
+    } catch (err) {
+      console.log('文章列表获取失败', err);
+      res.send({
+        code: 500,
+        message: 'article查询失败',
+      });
+    }
+  }
 }
 
 module.exports = new ArticleController();

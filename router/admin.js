@@ -32,4 +32,7 @@ router.post('/article', Article.createArticle);
 // 获取文章列表
 router.get('/article', Article.getArticleList);
 
+// 更新文章信息
+router.put('/article/:article_id', Article.updateArticle);
+
 module.exports = router;

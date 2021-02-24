@@ -5,6 +5,8 @@ class ArticleController extends baseController {
   constructor() {
     super();
     this.createArticle = this.createArticle.bind(this);
+    this.getArticleList = this.getArticleList.bind(this);
+    this.updateArticle = this.updateArticle.bind(this);
   }
 
   /**
@@ -101,6 +103,48 @@ class ArticleController extends baseController {
       res.send({
         code: 500,
         message: 'article查询失败',
+      });
+    }
+  }
+
+  /**
+   * @description 更新文章信息
+   * */
+  async updateArticle(req, res) {
+    const { article_id } = req.params;
+    const {
+      title, cover, summary, column,
+    } = req.body;
+    console.log('article_id', article_id);
+    if (typeof Number(article_id) !== 'number') {
+      res.send({
+        code: 400,
+        message: '请传入正确的article_id',
+      });
+    }
+    try {
+      const article = await ArticleModel.findOne({ article_id });
+      if (!article) {
+        res.send({
+          code: 0,
+          message: 'article不存在',
+        });
+      }
+      article.title = title || article.title;
+      article.cover = cover || article.cover;
+      article.summary = summary || article.summary;
+      article.column = column || article.column;
+      article.save();
+      res.send({
+        code: 0,
+        data: article,
+        message: 'success',
+      });
+    } catch (err) {
+      console.log('更新文章信息失败', err);
+      res.send({
+        code: 500,
+        message: 'article更新失败',
       });
     }
   }

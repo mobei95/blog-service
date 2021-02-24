@@ -21,10 +21,10 @@ router.post('/column', Column.createColumn);
 router.get('/column', Column.getColumnList);
 
 // 更新栏目
-router.put('/column', Column.updateColumn);
+router.put('/column/:column_id', Column.updateColumn);
 
 // 删除栏目
-router.delete('/column', Column.delColumn);
+router.delete('/column/:column_id', Column.delColumn);
 
 // 添加文章
 router.post('/article', Article.createArticle);
@@ -34,5 +34,8 @@ router.get('/article', Article.getArticleList);
 
 // 更新文章信息
 router.put('/article/:article_id', Article.updateArticle);
+
+// 删除文章
+router.delete('/article/:article_id', Article.removeArticle);
 
 module.exports = router;

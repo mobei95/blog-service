@@ -7,6 +7,7 @@ class ArticleController extends baseController {
     this.createArticle = this.createArticle.bind(this);
     this.getArticleList = this.getArticleList.bind(this);
     this.updateArticle = this.updateArticle.bind(this);
+    this.removeArticle = this.removeArticle.bind(this);
   }
 
   /**
@@ -121,6 +122,7 @@ class ArticleController extends baseController {
         code: 400,
         message: '请传入正确的article_id',
       });
+      return;
     }
     try {
       const article = await ArticleModel.findOne({ article_id });
@@ -145,6 +147,34 @@ class ArticleController extends baseController {
       res.send({
         code: 500,
         message: 'article更新失败',
+      });
+    }
+  }
+
+  /**
+   * @description 删除article
+   * */
+  async removeArticle(req, res) {
+    const { article_id } = req.params;
+    if (typeof Number(article_id) !== 'number') {
+      res.send({
+        code: 400,
+        message: '请传入正确的article_id',
+      });
+      return;
+    }
+    try {
+      await ArticleModel.remove({ article_id });
+      res.send({
+        code: 0,
+        data: 1,
+        success: 'message',
+      });
+    } catch (err) {
+      console.log('删除文章出错', err);
+      res.send({
+        code: 500,
+        message: '删除article出错',
       });
     }
   }

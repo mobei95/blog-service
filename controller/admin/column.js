@@ -98,11 +98,12 @@ class ColumnController extends baseController {
    * @description 更新column
    * */
   async updateColumn(req, res) {
-    const { column_name, column_id } = req.body;
-    if (!column_name || !column_id) {
+    const { column_id } = req.params;
+    const { column_name } = req.body;
+    if (!column_id) {
       res.send({
         code: 400,
-        message: '参数错误',
+        message: '请传入正确的column_id',
       });
       return;
     }
@@ -135,7 +136,7 @@ class ColumnController extends baseController {
    * @description 删除column
    * */
   async delColumn(req, res) {
-    const { column_id } = req.body;
+    const { column_id } = req.params;
     if (!column_id) {
       res.send({
         code: 400,
@@ -147,6 +148,7 @@ class ColumnController extends baseController {
       await columnModel.remove({ column_id });
       res.send({
         code: 0,
+        data: 1,
         success: 'message',
       });
     } catch (err) {

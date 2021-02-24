@@ -1,5 +1,6 @@
 const baseController = require('../base/baseController');
 const ArticleModel = require('../../database/model/article');
+const ColumnModel = require('../../database/model/column');
 
 class ArticleController extends baseController {
   constructor() {
@@ -15,7 +16,7 @@ class ArticleController extends baseController {
    * */
   async createArticle(req, res) {
     const {
-      title, cover, summary, content, column,
+      title, cover, summary, content, column_id,
     } = req.body;
     try {
       if (!title) {
@@ -24,7 +25,7 @@ class ArticleController extends baseController {
         throw new Error('文章摘要不可为空');
       } else if (!content) {
         throw new Error('文章内容不可为空');
-      } else if (typeof Number(column) !== 'number') {
+      } else if (!column_id || typeof Number(column_id) !== 'number') {
         throw new Error('请设置文章所在栏目');
       }
     } catch (err) {
@@ -43,13 +44,22 @@ class ArticleController extends baseController {
         });
         return;
       }
+      const column = await ColumnModel.findOne({ column_id: +column_id }).select('column_id column_name');
+      if (!column) {
+        res.send({
+          code: 0,
+          message: 'column不存在',
+        });
+        return;
+      }
+      const { column_name } = column;
       const newArticle = await ArticleModel.create({
         article_id: await this.getId('article_id'),
         title,
-        cover,
+        cover: cover || '',
         summary,
         content,
-        column,
+        column: { column_id, column_name },
       });
       res.send({
         code: 0,

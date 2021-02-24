@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   status: { type: Number, default: 0 }, // 0为账号未授权，1为账号已授权
 }, options);
 
-userSchema.index({ id: 1 });
+userSchema.index({ user_id: 1 });
 
 const UserModel = mongoose.model('user', userSchema);
 

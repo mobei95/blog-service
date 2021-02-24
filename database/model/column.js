@@ -10,7 +10,7 @@ const columnSchema = new mongoose.Schema({
   column_name: String,
 }, options);
 
-columnSchema.index({ id: 1 });
+columnSchema.index({ column_id: 1 });
 
 const ColumnModel = mongoose.model('column', columnSchema);
 

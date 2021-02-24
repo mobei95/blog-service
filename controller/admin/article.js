@@ -22,9 +22,9 @@ class ArticleController extends baseController {
         throw new Error('文章标题不可为空');
       } else if (!summary) {
         throw new Error('文章摘要不可为空');
-      } else if (content) {
+      } else if (!content) {
         throw new Error('文章内容不可为空');
-      } else if (typeof column !== 'number') {
+      } else if (typeof Number(column) !== 'number') {
         throw new Error('请设置文章所在栏目');
       }
     } catch (err) {
@@ -44,7 +44,7 @@ class ArticleController extends baseController {
         return;
       }
       const newArticle = await ArticleModel.create({
-        article_id: this.getId('article_id'),
+        article_id: await this.getId('article_id'),
         title,
         cover,
         summary,
@@ -114,7 +114,7 @@ class ArticleController extends baseController {
   async updateArticle(req, res) {
     const { article_id } = req.params;
     const {
-      title, cover, summary, column,
+      title, cover, summary, column, content,
     } = req.body;
     console.log('article_id', article_id);
     if (typeof Number(article_id) !== 'number') {
@@ -131,10 +131,12 @@ class ArticleController extends baseController {
           code: 0,
           message: 'article不存在',
         });
+        return;
       }
       article.title = title || article.title;
       article.cover = cover || article.cover;
       article.summary = summary || article.summary;
+      article.content = content || article.content;
       article.column = column || article.column;
       article.save();
       res.send({

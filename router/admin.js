@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../controller/admin/user');
 const Column = require('../controller/admin/column');
+const Article = require('../controller/admin/article');
 
 // 用户注册
 router.post('/register', User.register);
@@ -24,5 +25,8 @@ router.put('/column', Column.updateColumn);
 
 // 删除栏目
 router.delete('/column', Column.delColumn);
+
+// 添加文章
+router.post('/article', Article.createArticle);
 
 module.exports = router;

@@ -6,7 +6,7 @@ const options = {
 };
 
 const articleSchema = new mongoose.Schema({
-  id: Number,
+  article_id: Number,
   title: String,
   cover: String,
   summary: String,

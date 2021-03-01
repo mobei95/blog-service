@@ -13,6 +13,10 @@
   "lint-staged": {
     "*.js": "eslint --fix"
   },
+  "apidoc": {
+    "title": "接口文档",
+    "url": "http://localhost:3000"
+  },
   "dependencies": {
     "config-lite": "^3.0.0",
     "cors": "^2.8.5",

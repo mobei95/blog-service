@@ -5,7 +5,20 @@ const User = require('../controller/admin/user');
 const Column = require('../controller/admin/column');
 const Article = require('../controller/admin/article');
 
-// 用户注册
+/**
+ * @api {post} /admin/register 后台用户注册
+ * @apiDescription 用户注册
+ * @apiParam {string} user_name 用户名
+ * @apiParam {string} password 密码
+ * @apiSuccess {json} data
+ * @apiSuccessExample {json} Success-Response:
+ * {
+ *   "code": 0,
+ *   "message": "success"
+ * }
+ * @apiSampleRequest http://localhost:3000/admin/register
+ * @apiVersion 1.0.0
+ * */
 router.post('/register', User.register);
 
 // 用户登录
